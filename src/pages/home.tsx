@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { CharacterListResponse, Info } from "../interfaces/characterResponse";
 import { Character } from "../interfaces/character";
+import Pagination from "../components/pagination";
 
 
 
@@ -16,11 +17,13 @@ const Home = () => {
   const [search, setSearch] = useState<string>("");
   const [status, setStatus] = useState<string>("");
 
-  useEffect(() => {
-    fetchCharacters();
-  }, [search, status]);
+  const [currentPage, setCurrentPage] = useState<number>(0);
 
-  const fetchCharacters = async () => {
+  useEffect(() => {
+    fetchCharacters("");
+  }, []);
+
+  const fetchCharacters = async (setUrl: string) => {
     try {
       let url = `https://rickandmortyapi.com/api/character`;
       if(search != '') {
@@ -31,10 +34,34 @@ const Home = () => {
         }
       } else if(status != '') {
         url += `/?status=${status}`
-    }
+      }
+
+      if(setUrl != "") {
+        url = setUrl
+      }
       const response = await axios.get<CharacterListResponse>(url);
       setCharacters(response.data.results);
       setResponseInfo(response.data.info);
+
+      let urlPage = ''
+      console.log(response.data.info)
+      if(response.data.info) {
+        urlPage = response.data.info.prev != null ? response.data.info.prev : response.data.info.next;
+
+        console.log(urlPage)
+        //PEGA O NUMERO DA PAGINA ATUAL
+        const match = urlPage.match(/page=(\d+)/);
+        console.log(match)
+        let page = match ? parseInt(match[1]) : 0;
+
+        page = response.data.info.prev ? page + 1 : page -1
+        setCurrentPage(page ? page : 0)
+
+        console.log(page); // "1" 
+      }
+
+      
+
     } catch (error) {
       console.error("Erro ao buscar personagens", error);
       setCharacters([]);
@@ -66,13 +93,24 @@ const Home = () => {
             </Form.Select>
           </Col>
           <Col md={2}>
-            <Button variant="outline-primary" size="lg" className="w-100 mn-2   ">Buscar</Button>  
+            <Button variant="outline-primary" size="lg" className="w-100 mn-2   " onClick={() => fetchCharacters('')}>Buscar</Button>  
           </Col>
         </Row>
       
 
-      <h5 className="small text-end">{responseInfo?.count} personagens</h5>
+      
       <Row>
+        <Col md={12} className="mb-3">
+          <div className="d-flex justify-content-between align-items-end">
+            <h5 className="small text-end">{responseInfo?.count} personagens</h5>
+            <Pagination 
+              prevUrl={responseInfo ? responseInfo.prev : null} 
+              nextUrl={responseInfo ? responseInfo.next : null} 
+              currentPage={currentPage} 
+              onPageChange={(url) => fetchCharacters(url)}
+            />
+          </div>
+        </Col>
         {characters.map((char) => (
           <Col key={char.id} md={6} className="col-12 mb-3">
             <Card className="p-0 custom-card">
