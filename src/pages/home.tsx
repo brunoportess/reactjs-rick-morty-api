@@ -6,12 +6,15 @@ import { CharacterListResponse, Info } from "../interfaces/characterResponse";
 import { Character } from "../interfaces/character";
 import Pagination from "../components/pagination";
 import { useLoading } from "./../context/LoadingContext";
+import { useTranslator } from "../hook/translator";
 
 
 
 
 const Home = () => {
   const { showLoading, hideLoading } = useLoading();
+  const { translate } = useTranslator();
+
   const navigate = useNavigate();
   const [characters, setCharacters] = useState<Character[]>([]);
   const [responseInfo, setResponseInfo] = useState<Info | null>();
@@ -120,9 +123,12 @@ const Home = () => {
                 <Row className="w-100">
                     <Col className="col-12 align-content-around">
                         <Card.Title>{char.name}</Card.Title>
-                        <Card.Text className="mb-1">Status: {char.status}</Card.Text>
+                        <Card.Text className="mb-1">Status: {translate(char.status)}</Card.Text>
                         <Card.Text className="mb-1">{char.episode.length} episódios</Card.Text>
-                        <Card.Text className="mb-1">{char.location.name}</Card.Text>
+                        <Card.Text className="align-items-start card-text d-flex justify-content-center mb-1">
+                          <img src="/images/location.jpg"  width={20}/>
+                          {char.location.name}
+                        </Card.Text>
                     </Col>
                     
                 </Row>
