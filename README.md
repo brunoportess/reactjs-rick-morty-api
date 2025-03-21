@@ -1,54 +1,55 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<div style="text-align: center;">
+<img loading="lazy" width="150" src="./public/images/codefy.png" />
+</div>
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Projeto de frontend ReactJS com Typescript
 
-## Expanding the ESLint configuration
+## Configuração de ambiente
+Para executar localmente a aplicação, primeiramente certifique-se de possuir as ferramentas necessárias
+- As ferramentas necessárias para execução da aplicação são Git e Node
+- Instalar o Git [Clique aqui](https://git-scm.com/downloads)
+- Instalar o Node [Clique aqui](https://nodejs.org/pt/download)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+
+## Instalação
+
+Primeiramente, após ter o git instalado, realize o clone do repositório
+
+```
+  git clone https://github.com/brunoportess/reactjs-rick-morty-api
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Em seguida, acesse o diretório clonado
+```bash
+  cd reactjs-rick-morty-api
+``` 
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+Após acessar o diretorio execute o comando para instalação dos pacotes node_modules
+```bash
+  npm install
+  ```  
+
+Por fim, para executar a aplicação utilize o comando para abrir uma instância local da aplicação
+```bash
+  npm run dev
+  ```
+
+## Acessando a aplicação
+Agora você pode acessar a aplicação pelo navegador, por padrão, caso a porta esteja disponível, a aplicação pode ser acessada pela URL abaixo
+  ```bash
+  http://localhost:5173/
+  ```
+
+## Observações técnicas
+
+### Diretório src/hook
+
+Possui o arquivo para tradução de termos em inglês vindos da API
+
+### Diretório src/interface
+Possui as models/interfaces de tipagem de dados de retorno da API
+
