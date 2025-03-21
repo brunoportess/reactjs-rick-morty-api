@@ -56,6 +56,15 @@ Junto aos arquivos, recomendo também colocar o arquivo .htaccess para garantir 
 
 __Arquivo .htaccess está na raiz da aplicação__
 
+
+## Testes unitários
+Para executar os testes unitários, deverá executar o comando abaixo na raiz da aplicação
+```bash
+  npm run test
+  ```
+
+**O teste executará com sucesso com alguns warnings referentes aos componentes visuais de loading que existe na página e o warning informa que só podem ser vistos via browser**
+
 ## Observações técnicas
 
 ### Diretório src/hook
