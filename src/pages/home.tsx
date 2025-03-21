@@ -5,13 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { CharacterListResponse, Info } from "../interfaces/characterResponse";
 import { Character } from "../interfaces/character";
 import Pagination from "../components/pagination";
-
+import { useLoading } from "./../context/LoadingContext";
 
 
 
 
 const Home = () => {
-    const navigate = useNavigate();
+  const { showLoading, hideLoading } = useLoading();
+  const navigate = useNavigate();
   const [characters, setCharacters] = useState<Character[]>([]);
   const [responseInfo, setResponseInfo] = useState<Info | null>();
   const [search, setSearch] = useState<string>("");
@@ -24,6 +25,7 @@ const Home = () => {
   }, []);
 
   const fetchCharacters = async (setUrl: string) => {
+    showLoading();
     try {
       let url = `https://rickandmortyapi.com/api/character`;
       if(search != '') {
@@ -59,13 +61,12 @@ const Home = () => {
 
         console.log(page); // "1" 
       }
-
-      
-
     } catch (error) {
       console.error("Erro ao buscar personagens", error);
       setCharacters([]);
       setResponseInfo(null);
+    } finally {
+      hideLoading();
     }
   };
 
@@ -131,6 +132,16 @@ const Home = () => {
             </Card>
           </Col>
         ))}
+        <Col md={12}>
+        <div className="float-end">
+            <Pagination 
+              prevUrl={responseInfo ? responseInfo.prev : null} 
+              nextUrl={responseInfo ? responseInfo.next : null} 
+              currentPage={currentPage} 
+              onPageChange={(url) => fetchCharacters(url)}
+            />
+          </div>
+        </Col>
       </Row>
     </Container>
   );

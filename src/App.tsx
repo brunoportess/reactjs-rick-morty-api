@@ -5,11 +5,15 @@ import "./style/custom.css";
 
 import AppRouter from "./routes";
 
+import { LoadingProvider } from "./context/LoadingContext";
+import Loading from './components/loading';
+
 export default function App() {
 
   return (
-    <>
-      <AppRouter />
-    </>
+      <LoadingProvider>
+        <Loading />
+        <AppRouter />
+    </LoadingProvider>
   );
 }
