@@ -13,3 +13,5 @@ export const useTranslator = () => {
 
   return { translate };
 };
+
+export default useTranslator
