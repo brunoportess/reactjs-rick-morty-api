@@ -44,6 +44,18 @@ Agora você pode acessar a aplicação pelo navegador, por padrão, caso a porta
   http://localhost:5173/
   ```
 
+
+## Hospedando aplicação
+Para hospedar uma versão build da aplicação, primeiramente execute o comando para gerar uma versão de produção
+```bash
+  npm run build
+  ```
+
+Os arquivos que devem ser hospedados serão gerados dentro da pasta "dist".
+Junto aos arquivos, recomendo também colocar o arquivo .htaccess para garantir o bom funcionamento em produção da aplicação
+
+__Arquivo .htaccess está na raiz da aplicação__
+
 ## Observações técnicas
 
 ### Diretório src/hook
