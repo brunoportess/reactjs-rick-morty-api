@@ -5,6 +5,8 @@ export const useTranslator = () => {
     "Alive": "Vivo",
     "Dead": "Morto",
     "unknown": "Desconhecido",
+    "Male": "Masculino",
+    "Female": "Feminino",
   }), []);
 
   const translate = (key: string) => statusMap[key] || key;
