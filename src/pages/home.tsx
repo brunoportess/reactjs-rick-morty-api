@@ -44,25 +44,28 @@ const Home = () => {
       if(setUrl != "") {
         url = setUrl
       }
+
       const response = await axios.get<CharacterListResponse>(url);
       setCharacters(response.data.results);
       setResponseInfo(response.data.info);
 
       let urlPage = ''
-      console.log(response.data.info)
       if(response.data.info) {
-        urlPage = response.data.info.prev != null ? response.data.info.prev : response.data.info.next;
+        if(response.data.info.prev == null && response.data.info.next == null) {
+          setCurrentPage(1)
+        } else {
+          urlPage = response.data.info.prev != null ? response.data.info.prev : response.data.info.next;
 
         console.log(urlPage)
         //PEGA O NUMERO DA PAGINA ATUAL
         const match = urlPage.match(/page=(\d+)/);
-        console.log(match)
         let page = match ? parseInt(match[1]) : 0;
 
         page = response.data.info.prev ? page + 1 : page -1
         setCurrentPage(page ? page : 0)
 
-        console.log(page); // "1" 
+        }
+        
       }
     } catch (error) {
       console.error("Erro ao buscar personagens", error);
